@@ -52,6 +52,20 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
+st.markdown("""
+    <style>
+        /* Expander label hover and active state */
+        .streamlit-expanderHeader:hover {
+            color: #019cab !important;
+        }
+        .streamlit-expanderHeader:focus {
+            color: #019cab !important;
+        }
+        .streamlit-expanderHeader[aria-expanded="true"] {
+            color: #019cab !important;
+        }
+    </style>
+""", unsafe_allow_html=True)
 
 
 # ---------- Load Data ----------
