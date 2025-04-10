@@ -1,6 +1,21 @@
 import streamlit as st
 import pandas as pd
 
+st.markdown(
+    """
+    <style>
+        .main {
+            background-color: #334050;
+            color: white;
+        }
+        .stApp {
+            background-color: #334050;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 # Load data
 @st.cache_data
 def load_data():
@@ -86,14 +101,21 @@ st.sidebar.header("Filter IOAs")
 sectors = df["sector_identification"].dropna().unique()
 selected_sector = st.sidebar.selectbox("Select Sector", ["All"] + list(sectors))
 
-subsectors = df["subsector_identification"].dropna().unique()
-selected_subsector = st.sidebar.selectbox("Select Sub-sector", ["All"] + list(subsectors))
+# Dynamically filter sub-sectors based on selected sector
+if selected_sector == "All":
+    available_subsectors = df["subsector_identification"].dropna().unique()
+else:
+    available_subsectors = df[df["sector_identification"] == selected_sector]["subsector_identification"].dropna().unique()
 
+selected_subsector = st.sidebar.selectbox("Select Sub-sector", ["All"] + list(available_subsectors))
+
+# Apply filters
 filtered_df = df.copy()
 if selected_sector != "All":
     filtered_df = filtered_df[filtered_df["sector_identification"] == selected_sector]
 if selected_subsector != "All":
     filtered_df = filtered_df[filtered_df["subsector_identification"] == selected_subsector]
+
 
 # Main view
 if "selected_ioa" not in st.session_state:
@@ -116,7 +138,16 @@ if st.session_state.selected_ioa:
                     st.markdown(value)
 else:
     st.title("Investment Opportunity Areas (IOAs)")
-    for _, row in filtered_df.iterrows():
-        if st.button(row["ioa_title"]):
-            st.session_state.selected_ioa = row["ioa_title"]
-            st.rerun()
+
+    # Display IOAs in a grid (2 per row)
+    cols = st.columns(2)
+    for index, (_, row) in enumerate(filtered_df.iterrows()):
+        col = cols[index % 2]
+        with col:
+            # Show image if available
+            if pd.notna(row["image"]):
+                st.image(row["image"], use_column_width=True)
+            # Show button with IOA title
+            if st.button(row["ioa_title"], key=row["ioa_title"]):
+                st.session_state.selected_ioa = row["ioa_title"]
+                st.rerun()
