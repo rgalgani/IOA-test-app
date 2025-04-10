@@ -16,6 +16,35 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+st.markdown(
+    """
+    <style>
+        .stApp {
+            background-color: #334050;
+            color: white;
+        }
+
+        /* Button color customization */
+        div.stButton > button {
+            background-color: #1e1e1e;
+            color: white;
+            border: 1px solid #019cab;
+        }
+
+        div.stButton > button:hover {
+            background-color: #019cab;
+            color: white;
+        }
+
+        div.stButton > button:focus:not(:active) {
+            border-color: #019cab;
+            box-shadow: 0 0 0 0.2rem rgba(1, 156, 171, 0.25);
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 # Load data
 @st.cache_data
 def load_data():
@@ -146,7 +175,7 @@ else:
         with col:
             # Show image if available
             if pd.notna(row["image"]):
-                st.image(row["image"], use_column_width=True)
+                st.image(row["image"], use_container_width=True)
             # Show button with IOA title
             if st.button(row["ioa_title"], key=row["ioa_title"]):
                 st.session_state.selected_ioa = row["ioa_title"]
