@@ -51,38 +51,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-st.markdown("""
-    <style>
-        .stApp {
-            background-color: #334050;
-            color: white;
-        }
 
-        .block-container {
-            padding-top: 1rem;
-            padding-bottom: 1rem;
-            background-color: #334050;
-        }
-
-        .css-1lcbmhc, .css-1kyxreq, .css-1n76uvr {
-            background-color: #334050 !important;
-        }
-
-        .stColumn {
-            padding: 0 !important;
-        }
-
-        .stContainer {
-            padding: 0px !important;
-            margin: 0px !important;
-        }
-
-        .stHorizontalBlock {
-            margin-top: 0px !important;
-            margin-bottom: 0px !important;
-        }
-    </style>
-""", unsafe_allow_html=True)
 
 
 # ---------- Load Data ----------
@@ -203,23 +172,23 @@ if st.session_state.selected_ioa:
                 if pd.notna(value):
                     st.markdown(f"**{label}:**")
                     st.markdown(value)
+
 # ---------- IOA List View ----------
 else:
     st.title("Investment Opportunity Areas (IOAs)")
+    cols = st.columns([0.5, 0.5])  # Forces equal width columns
 
-    for i in range(0, len(filtered_df), 2):
-        row = filtered_df.iloc[i:i+2]
-        cols = st.columns(2)
-
-        for col, (_, card_data) in zip(cols, row.iterrows()):
-            with col:
+    for index, (_, row) in enumerate(filtered_df.iterrows()):
+        col = cols[index % 2]
+        with col:
+            with st.container():
                 st.markdown(
                     """
                     <div style="
                         background-color: white;
                         border-radius: 12px;
                         padding: 12px;
-                        margin: 0px auto 10px auto;
+                        margin: 0px auto 20px auto;
                         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
                         text-align: center;
                         width: 100%;
@@ -228,11 +197,11 @@ else:
                     unsafe_allow_html=True
                 )
 
-                if pd.notna(card_data["image"]):
-                    st.image(card_data["image"], use_container_width=True)
+                if pd.notna(row["image"]):
+                    st.image(row["image"], use_container_width=True)
 
-                if st.button(card_data["ioa_title"], key=card_data["ioa_title"]):
-                    st.session_state.selected_ioa = card_data["ioa_title"]
+                if st.button(row["ioa_title"], key=row["ioa_title"]):
+                    st.session_state.selected_ioa = row["ioa_title"]
                     st.rerun()
 
                 st.markdown("</div>", unsafe_allow_html=True)
