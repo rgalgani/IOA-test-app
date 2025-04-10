@@ -169,21 +169,14 @@ else:
     st.title("Investment Opportunity Areas (IOAs)")
 
     # Display IOAs in a grid (2 per row)
-cols = st.columns(2)
-for index, (_, row) in enumerate(filtered_df.iterrows()):
-    col = cols[index % 2]
-    with col:
-        # 🔄 Custom image block (instead of st.image)
-        if pd.notna(row["image"]):
-            st.markdown(
-                f"""
-                <div style="height: 200px; overflow: hidden; display: flex; align-items: center; justify-content: center; margin-bottom: 8px;">
-                    <img src="{row['image']}" style="max-height: 100%; max-width: 100%; object-fit: cover;" />
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
-        # Title button
-        if st.button(row["ioa_title"], key=row["ioa_title"]):
-            st.session_state.selected_ioa = row["ioa_title"]
-            st.rerun()
+    cols = st.columns(2)
+    for index, (_, row) in enumerate(filtered_df.iterrows()):
+        col = cols[index % 2]
+        with col:
+            # Show image if available
+            if pd.notna(row["image"]):
+                st.image(row["image"], use_container_width=True, output_format="auto", caption=None)
+            # Show button with IOA title
+            if st.button(row["ioa_title"], key=row["ioa_title"]):
+                st.session_state.selected_ioa = row["ioa_title"]
+                st.rerun()
