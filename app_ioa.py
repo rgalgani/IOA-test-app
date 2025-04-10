@@ -9,6 +9,14 @@ st.markdown("""
             color: white;
         }
 
+        .block-container {
+            background-color: #334050 !important;
+        }
+
+        .main, .css-18e3th9, .css-1d391kg {
+            background-color: #334050 !important;
+        }
+
         div.stButton > button {
             background-color: #334050;
             color: white;
