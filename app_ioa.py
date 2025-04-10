@@ -51,6 +51,39 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
+st.markdown("""
+    <style>
+        .stApp {
+            background-color: #334050;
+            color: white;
+        }
+
+        .block-container {
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            background-color: #334050;
+        }
+
+        .css-1lcbmhc, .css-1kyxreq, .css-1n76uvr {
+            background-color: #334050 !important;
+        }
+
+        .stColumn {
+            padding: 0 !important;
+        }
+
+        .stContainer {
+            padding: 0px !important;
+            margin: 0px !important;
+        }
+
+        .stHorizontalBlock {
+            margin-top: 0px !important;
+            margin-bottom: 0px !important;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
 
 # ---------- Load Data ----------
 @st.cache_data
