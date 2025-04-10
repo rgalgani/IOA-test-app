@@ -45,6 +45,22 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+st.markdown(
+    """
+    <style>
+        div.stButton > button {
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            white-space: normal;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 # Load data
 @st.cache_data
 def load_data():
