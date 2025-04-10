@@ -178,7 +178,7 @@ else:
                         background-color: white;
                         border-radius: 12px;
                         padding: 12px;
-                        margin-bottom: 20px;
+                        margin: 0px auto 20px auto;
                         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
                         text-align: center;
                         width: 100%;
