@@ -203,35 +203,36 @@ if st.session_state.selected_ioa:
                 if pd.notna(value):
                     st.markdown(f"**{label}:**")
                     st.markdown(value)
-
 # ---------- IOA List View ----------
 else:
     st.title("Investment Opportunity Areas (IOAs)")
+
     for i in range(0, len(filtered_df), 2):
-    row = filtered_df.iloc[i:i+2]
-    cols = st.columns(2)
-    for col, (_, card_data) in zip(cols, row.iterrows()):
-        with col:
-            st.markdown(
-                """
-                <div style="
-                    background-color: white;
-                    border-radius: 12px;
-                    padding: 12px;
-                    margin: 0px auto 10px auto;
-                    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-                    text-align: center;
-                    width: 100%;
-                ">
-                """,
-                unsafe_allow_html=True
-            )
+        row = filtered_df.iloc[i:i+2]
+        cols = st.columns(2)
 
-            if pd.notna(card_data["image"]):
-                st.image(card_data["image"], use_container_width=True)
+        for col, (_, card_data) in zip(cols, row.iterrows()):
+            with col:
+                st.markdown(
+                    """
+                    <div style="
+                        background-color: white;
+                        border-radius: 12px;
+                        padding: 12px;
+                        margin: 0px auto 10px auto;
+                        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+                        text-align: center;
+                        width: 100%;
+                    ">
+                    """,
+                    unsafe_allow_html=True
+                )
 
-            if st.button(card_data["ioa_title"], key=card_data["ioa_title"]):
-                st.session_state.selected_ioa = card_data["ioa_title"]
-                st.rerun()
+                if pd.notna(card_data["image"]):
+                    st.image(card_data["image"], use_container_width=True)
 
-            st.markdown("</div>", unsafe_allow_html=True)
+                if st.button(card_data["ioa_title"], key=card_data["ioa_title"]):
+                    st.session_state.selected_ioa = card_data["ioa_title"]
+                    st.rerun()
+
+                st.markdown("</div>", unsafe_allow_html=True)
