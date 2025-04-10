@@ -166,7 +166,7 @@ if st.session_state.selected_ioa:
 # ---------- IOA List View ----------
 else:
     st.title("Investment Opportunity Areas (IOAs)")
-    cols = st.columns(2)
+    cols = st.columns([0.5, 0.5])  # Forces equal width columns
 
     for index, (_, row) in enumerate(filtered_df.iterrows()):
         col = cols[index % 2]
@@ -181,6 +181,7 @@ else:
                         margin-bottom: 20px;
                         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
                         text-align: center;
+                        width: 100%;
                     ">
                     """,
                     unsafe_allow_html=True
