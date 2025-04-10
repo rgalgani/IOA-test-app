@@ -54,15 +54,19 @@ st.markdown("""
 
 st.markdown("""
     <style>
-        /* Expander label hover and active state */
-        .streamlit-expanderHeader:hover {
+        /* Change color of expander label on hover and when expanded */
+        details summary:hover {
             color: #019cab !important;
         }
-        .streamlit-expanderHeader:focus {
+
+        details[open] summary {
             color: #019cab !important;
         }
-        .streamlit-expanderHeader[aria-expanded="true"] {
-            color: #019cab !important;
+
+        /* Optional: make the label text bold or adjust spacing */
+        details summary {
+            font-weight: 500;
+            font-size: 1.1rem;
         }
     </style>
 """, unsafe_allow_html=True)
