@@ -4,10 +4,6 @@ import pandas as pd
 # ---------- Custom Styles ----------
 st.markdown("""
     <style>
-        .main {
-            background-color: #334050;
-            color: white;
-        }
         .stApp {
             background-color: #334050;
             color: white;
@@ -34,20 +30,18 @@ st.markdown("""
             border-color: #019cab;
             box-shadow: 0 0 0 0.2rem rgba(1, 156, 171, 0.25);
         }
+
+        section[data-testid="stSidebar"] .stSelectbox {
+            background-color: #334050 !important;
+            border-radius: 6px;
+            color: white !important;
+        }
+
+        section[data-testid="stSidebar"] label {
+            color: white !important;
+        }
     </style>
 """, unsafe_allow_html=True)
-
-/* Style sidebar select boxes */
-section[data-testid="stSidebar"] .stSelectbox {
-    background-color: #334050 !important;
-    border-radius: 6px;
-    color: white !important;
-}
-
-/* Style select label text */
-section[data-testid="stSidebar"] label {
-    color: white !important;
-}
 
 
 # ---------- Load Data ----------
