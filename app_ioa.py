@@ -102,7 +102,7 @@ if "selected_ioa" not in st.session_state:
 if st.session_state.selected_ioa:
     if st.button("⬅️ Back to IOA List"):
         st.session_state.selected_ioa = None
-        st.experimental_rerun()
+        st.rerun()
 
     selected_row = df[df["ioa_title"] == st.session_state.selected_ioa].iloc[0]
 
@@ -119,4 +119,4 @@ else:
     for _, row in filtered_df.iterrows():
         if st.button(row["ioa_title"]):
             st.session_state.selected_ioa = row["ioa_title"]
-            st.experimental_rerun()
+            st.rerun()
