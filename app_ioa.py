@@ -14,7 +14,7 @@ st.markdown("""
         }
 
         div.stButton > button {
-            background-color: #1e1e1e;
+            background-color: #334050;
             color: white;
             border: 1px solid #019cab;
             height: 70px;
