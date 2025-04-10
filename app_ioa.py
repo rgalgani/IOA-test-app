@@ -166,6 +166,14 @@ if selected_subsector != "All":
 if "selected_ioa" not in st.session_state:
     st.session_state.selected_ioa = None
 
+if "selected_ioa" not in st.session_state:
+    st.session_state.selected_ioa = None
+
+# Handle click from card button
+selected = st.experimental_get_query_params().get("selected_ioa")
+if selected:
+    st.session_state.selected_ioa = selected[0]
+
 if st.session_state.selected_ioa:
     if st.button("⬅️ Back to IOA List"):
         st.session_state.selected_ioa = None
@@ -184,15 +192,44 @@ if st.session_state.selected_ioa:
 else:
     st.title("Investment Opportunity Areas (IOAs)")
 
-    # Display IOAs in a grid (2 per row)
+    # Display IOAs as styled cards (2 per row)
     cols = st.columns(2)
     for index, (_, row) in enumerate(filtered_df.iterrows()):
         col = cols[index % 2]
         with col:
-            # Show image if available
-            if pd.notna(row["image"]):
-                st.image(row["image"], use_container_width=True, output_format="auto", caption=None)
-            # Show button with IOA title
-            if st.button(row["ioa_title"], key=row["ioa_title"]):
-                st.session_state.selected_ioa = row["ioa_title"]
-                st.rerun()
+            st.markdown(
+                f"""
+                <div style="
+                    background-color: white;
+                    border-radius: 12px;
+                    padding: 16px;
+                    margin-bottom: 20px;
+                    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+                    text-align: center;
+                    height: 100%;
+                ">
+                    <img src="{row['image']}" style="width: 100%; height: 160px; object-fit: cover; border-radius: 8px;" />
+                    <div style="margin-top: 12px;">
+                        <form action="" method="post">
+                            <button type="submit" name="selected_ioa" value="{row['ioa_title']}" style="
+                                width: 100%;
+                                height: 60px;
+                                background-color: #1e1e1e;
+                                color: white;
+                                border: 1px solid #019cab;
+                                border-radius: 6px;
+                                font-size: 16px;
+                                font-weight: 500;
+                                cursor: pointer;
+                            ">{row['ioa_title']}</button>
+                        </form>
+                    </div>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
+
+    # Capture button presses from custom HTML form
+    if "selected_ioa" in st.session_state:
+        st.session_state.selected_ioa = st.session_state.selected_ioa
+        st.rerun()
