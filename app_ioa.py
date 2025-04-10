@@ -37,6 +37,19 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
+/* Style sidebar select boxes */
+section[data-testid="stSidebar"] .stSelectbox {
+    background-color: #334050 !important;
+    border-radius: 6px;
+    color: white !important;
+}
+
+/* Style select label text */
+section[data-testid="stSidebar"] label {
+    color: white !important;
+}
+
+
 # ---------- Load Data ----------
 @st.cache_data
 def load_data():
