@@ -1,19 +1,6 @@
 import streamlit as st
 import pandas as pd
 
-if "authenticated" not in st.session_state:
-    st.session_state.authenticated = False
-
-if not st.session_state.authenticated:
-    st.title("🔒 Protected Access")
-    pw = st.text_input("Enter password:", type="password")
-
-    if pw == PASSWORD:
-        st.session_state.authenticated = True
-        st.rerun()
-    elif pw:
-        st.error("Incorrect password")
-    st.stop()
 
 # ---------- Custom Styles ----------
 st.markdown("""
