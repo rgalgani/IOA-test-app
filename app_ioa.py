@@ -136,6 +136,7 @@ eioa_groups["Enabling Environment"] = [
 # ---------- Dataset Selector ----------
 view_mode = st.sidebar.radio("Select View", ["IOAs", "EIOAs"])
 
+# ---------- Load data based on view ----------
 if view_mode == "IOAs":
     df = load_ioa_data()
     title_var = "ioa_title"
@@ -144,6 +145,29 @@ else:
     df = load_eioa_data()
     title_var = "eioa_title"
     group_structure = eioa_groups
+
+# ---------- Sidebar Filters ----------
+st.sidebar.markdown("---")
+st.sidebar.subheader("Filter by sector")
+
+sectors = df["sector_identification"].dropna().unique()
+selected_sector = st.sidebar.selectbox("Sector", ["All"] + list(sectors))
+
+if selected_sector == "All":
+    available_subsectors = df["subsector_identification"].dropna().unique()
+else:
+    available_subsectors = df[df["sector_identification"] == selected_sector]["subsector_identification"].dropna().unique()
+
+selected_subsector = st.sidebar.selectbox("Sub-sector", ["All"] + list(available_subsectors))
+
+# ---------- Apply filters ----------
+filtered_df = df.copy()
+if selected_sector != "All":
+    filtered_df = filtered_df[filtered_df["sector_identification"] == selected_sector]
+if selected_subsector != "All":
+    filtered_df = filtered_df[filtered_df["subsector_identification"] == selected_subsector]
+
+
 
 # ---------- Page State ----------
 if "selected_ioa" not in st.session_state:
@@ -171,7 +195,7 @@ else:
     st.title("Investment Opportunity Areas" if view_mode == "IOAs" else "Emerging Investment Opportunity Areas")
     cols = st.columns([0.5, 0.5])
 
-    for index, (_, row) in enumerate(df.iterrows()):
+    for index, (_, row) in enumerate(filtered_df.iterrows()):
         col = cols[index % 2]
         with col:
             with st.container():
