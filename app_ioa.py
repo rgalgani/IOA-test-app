@@ -35,10 +35,23 @@ st.markdown("""
             box-shadow: 0 0 0 0.2rem rgba(1, 156, 171, 0.25);
         }
 
-        section[data-testid="stSidebar"] .stSelectbox {
+        section[data-testid="stSidebar"] {
+            background-color: #253544 !important;
+            color: white;
+            padding: 1.5rem;
+            border-right: 2px solid #019cab;
+        }
+
+        section[data-testid="stSidebar"] .stSelectbox,
+        section[data-testid="stSidebar"] .stRadio {
             background-color: #334050 !important;
-            border-radius: 6px;
             color: white !important;
+            border-radius: 6px;
+        }       
+
+        section[data-testid="stSidebar"] label {
+            color: white !important;
+            font-weight: bold;
         }
 
         section[data-testid="stSidebar"] label {
