@@ -18,7 +18,7 @@ if not st.session_state.authenticated:
         st.error("Incorrect password")
     st.stop()
 
-
+    
 
 # ---------- Custom Styles ----------
 st.markdown("""
@@ -231,11 +231,11 @@ if st.session_state.selected_ioa:
     sdg_var = "sdg_prim_ident"
 
     with st.container():
-        st.markdown("### 📌 Overview")
+        st.markdown("### 📌 Quick Summary")
         if pd.notna(selected_row.get(model_var, "")):
             st.markdown(f"**Business Model:** {selected_row[model_var]}")
         if pd.notna(selected_row.get(roi_var, "")):
-            st.markdown(f"**Expected Return (ROI):** {selected_row[roi_var]}")
+            st.markdown(f"**Expected Return:** {selected_row[roi_var]}")
         if pd.notna(selected_row.get(sdg_var, "")):
             st.markdown(f"**SDG Impact:** {selected_row[sdg_var]}")
 
