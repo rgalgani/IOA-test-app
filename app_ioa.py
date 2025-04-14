@@ -212,8 +212,34 @@ if st.session_state.selected_ioa:
         st.rerun()
 
     selected_row = df[df[title_var] == st.session_state.selected_ioa].iloc[0]
+
+    # 1. Show the image at the top
+    image_var = "image"
+    if pd.notna(selected_row.get(image_var)):
+        st.image(selected_row[image_var], use_container_width=True)
+
+    # 2. Show the title
     st.header(st.session_state.selected_ioa)
 
+    # 3. Show selected key summary fields
+    if view_mode == "IOAs":
+        model_var = "ioa_model"
+    else:
+        model_var = "eioa_model"
+
+    roi_var = "return_roi"
+    sdg_var = "sdg_prim_ident"
+
+    with st.container():
+        st.markdown("### 📌 Quick Summary")
+        if pd.notna(selected_row.get(model_var, "")):
+            st.markdown(f"**Business Model:** {selected_row[model_var]}")
+        if pd.notna(selected_row.get(roi_var, "")):
+            st.markdown(f"**Expected Return:** {selected_row[roi_var]}")
+        if pd.notna(selected_row.get(sdg_var, "")):
+            st.markdown(f"**SDG Impact:** {selected_row[sdg_var]}")
+
+    # 4. Show the grouped expandable categories
     for group_name, fields in group_structure.items():
         with st.expander(group_name, expanded=False):
             for label, var in fields:
